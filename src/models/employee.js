@@ -1,4 +1,4 @@
 import mongoose from "mongoose";
-import {employeeSchema} from '../schema/employee.js'
+import { employeeSchema } from "../schema/employee.js";
 
-export const employeeModel = mongoose.model('Employee', employeeSchema)
+export const employeeModel = mongoose.model("Employee", employeeSchema);

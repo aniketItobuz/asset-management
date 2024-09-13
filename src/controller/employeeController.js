@@ -1,28 +1,27 @@
 import { employeeModel } from "../models/employee.js";
-import { employeeZodSchema } from "../zod/zodSchema.js"
+import { employeeZodSchema } from "../zod/zodSchema.js";
 
-export const getAllEmployees = async (req, res) =>{
-    try {
-        const emp = await employeeModel.find();
-        return res.json({
-          data: emp
-        });
-      } catch (err) {
-        console.log(err);
-    }
-}
-
+export const getAllEmployees = async (req, res) => {
+  try {
+    const emp = await employeeModel.find();
+    return res.json({
+      data: emp,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const getEmployeeById = async (req, res) => {
-    try {
-        const emp = await employeeModel.findById(req.params.id)
-        return res.json({
-          data: emp
-        });
-      } catch (err) {
-        console.log(err);
-    }
-}
+  try {
+    const emp = await employeeModel.findById(req.params.id);
+    return res.json({
+      data: emp,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const addEmployee = async (req, res) => {
   const result = employeeZodSchema.safeParse(req.body);
@@ -33,12 +32,11 @@ export const addEmployee = async (req, res) => {
 
   try {
     const a1 = await emp.save();
-    res.json(a1)
+    res.json(a1);
   } catch (err) {
     res.status(500).send("Error: " + err);
   }
-  
-}
+};
 
 export const updateEmployee = async (req, res) => {
   try {
@@ -48,7 +46,7 @@ export const updateEmployee = async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone_no: req.body.phone_no,
-        team: req.body.team
+        team: req.body.team,
       },
       { new: true } // Return the updated document
     );
@@ -59,8 +57,7 @@ export const updateEmployee = async (req, res) => {
   } catch (err) {
     res.send("Error" + err);
   }
-  
-}
+};
 
 export const deleteEmployee = async (req, res) => {
   try {
@@ -69,4 +66,4 @@ export const deleteEmployee = async (req, res) => {
   } catch (err) {
     res.send("Error" + err);
   }
-}
+};
