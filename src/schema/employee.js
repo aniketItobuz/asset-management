@@ -3,23 +3,22 @@ import mongoose from 'mongoose'
 export const employeeSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     email: {
         type: String,
-        require: true
+        required: true
     },
     phone_no: {
-        type: Number,
-        require: true
+        type: String,
+        required: true
     },
     team: {
         type: String,
-        require: true
+        required: true
     },
     status: {
         type: Boolean,
-        require: true,
         default: true
     },
 
