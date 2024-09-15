@@ -13,4 +13,6 @@ export const assetZodSchema = z.object({
   description: z.string().min(1, "Description is required"),
   type: z.string().min(1, "Type is required"),
   serial_no: z.string().min(1, "Serial number is required"),
+  assignee: z.string().optional(),
+  created_by: z.string()
 });

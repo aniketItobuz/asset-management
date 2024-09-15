@@ -13,6 +13,7 @@ export const assetSchema = new mongoose.Schema(
     assignee: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employee",
+      default: null,
     },
     created_by: {
       type: mongoose.Schema.Types.ObjectId,
