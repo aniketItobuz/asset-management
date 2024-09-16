@@ -11,9 +11,11 @@ const port = config.PORT;
 app.use(express.json());
 
 // Enable CORS
-app.use(cors({
-  origin: 'http://localhost:5173', // Allow your frontend domain
-}));
+app.use(cors());
+
+app.get('/health', (req, res)=>{
+  res.send("Server running ok")
+})
 
 app.use(rootRouter);
 
