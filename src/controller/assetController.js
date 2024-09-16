@@ -57,3 +57,27 @@ export const updateAsset = async (req, res) =>{
     res.send("Error" + err);
   }
 }
+
+
+export const getAssetById = async (req, res) =>{
+  try {
+    const hard = await assetModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        name: req.body.name,
+        description: req.body.description,
+        type: req.body.type,
+        serial_no: req.body.serial_no
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (!hard) {
+      return res.status(404).send("Hardware not found");
+    }
+
+    res.json(hard);
+  } catch (err) {
+    res.send("Error" + err);
+  }
+}
