@@ -16,3 +16,8 @@ export const assetZodSchema = z.object({
   assignee: z.string().optional(),
   created_by: z.string()
 });
+
+export const assetTypeZodSchema = z.object({
+  title: z.string().min(1, "Name is required"),
+  description: z.string().min(1, "Description is required"),
+});
