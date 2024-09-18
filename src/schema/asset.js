@@ -20,7 +20,8 @@ export const assetSchema = new mongoose.Schema(
       ref: "Employee",
     },
     type: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "AssetType",
       required: true,
     },
     attachment: {
