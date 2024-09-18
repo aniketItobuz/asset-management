@@ -14,10 +14,12 @@ export const assetHistorySchema = new mongoose.Schema({
   current_assignee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Employee',
-    required: true,
   },
   assigned_date: {
     type: Date,
     default: Date.now,
+  },
+  return_date: {
+    type: Date,
   },
 });
