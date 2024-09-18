@@ -1,6 +1,7 @@
 import { assetModel } from "../models/asset.js";
 import { assetHistoryModel } from "../models/assetAssign.js";
 
+
 export const assetAssign = async (req, res) => {
   try {
     const { asset_id, new_assignee_id } = req.body;
@@ -19,6 +20,7 @@ export const assetAssign = async (req, res) => {
     const previous_assignee = lastHistoryEntry ? lastHistoryEntry.current_assignee : null;
 
     // Check if the asset is being assigned to the same person
+    // Allow reassignment if previous_assignee is null
     if (previous_assignee && previous_assignee.toString() === new_assignee_id) {
       return res.status(400).json({ message: 'This asset is already assigned to this person' });
     }
@@ -28,6 +30,7 @@ export const assetAssign = async (req, res) => {
       asset_id,
       previous_assignee,
       current_assignee: new_assignee_id,
+      assigned_date: new Date(), // Set the assigned date to now
     });
 
     // Save the new history entry
@@ -42,6 +45,9 @@ export const assetAssign = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 
 export const assetHistory = async (req, res) => {
