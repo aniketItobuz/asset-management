@@ -3,12 +3,31 @@ import { employeeZodSchema } from "../zod/zodSchema.js";
 
 export const getAllEmployees = async (req, res) => {
   try {
-    const emp = await employeeModel.find();
+    // Get `page` and `limit` from query params (defaults to page 1 and 10 items per page)
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Calculate the number of documents to skip
+    const startIndex = (page - 1) * limit;
+
+    // Fetch employees with pagination
+    const employees = await employeeModel.find().skip(startIndex).limit(limit);
+
+    // Get total number of employees for pagination metadata
+    const totalEmployees = await employeeModel.countDocuments();
+
     return res.json({
-      data: emp,
+      data: employees,
+      meta: {
+        total: totalEmployees,
+        page,
+        limit,
+        totalPages: Math.ceil(totalEmployees / limit),
+      },
     });
   } catch (err) {
     console.log(err);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 

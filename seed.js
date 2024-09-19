@@ -37,7 +37,7 @@ const User = mongoose.model("Employee", UserSchema);
 // Generate dynamic seed data using faker
 const generateSeedData = () => {
   const users = [];
-  for (let i = 0; i < 10; i++) { // Generate 10 random users
+  for (let i = 0; i < 100; i++) { // Generate 10 random users
     users.push({
       name: faker.person.fullName(),
       email: faker.internet.email(),
