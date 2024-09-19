@@ -1,8 +1,7 @@
 import { employeeModel } from "../models/employee.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'; // Ensure this is defined
+import config from "../config/config.js";
 
 export const getLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -21,7 +20,7 @@ export const getLogin = async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id }, config.JWT_SECRET, { expiresIn: '1h' });
 
         // Respond with token and user details
         res.json({

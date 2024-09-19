@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import { connectToMongoDB } from "./connection/db.js";
-import { config } from "./config/config.js";
+import  config  from "./config/config.js";
 import rootRouter from "./router/rootRouter.js";
 
 connectToMongoDB();
