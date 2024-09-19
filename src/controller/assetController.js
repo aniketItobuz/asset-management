@@ -3,12 +3,31 @@ import { assetZodSchema } from "../zod/zodSchema.js";
 
 export const getAllAssets = async (req, res) => {
   try {
-    const emp = await assetModel.find();
+    // Get `page` and `limit` from query params (defaults to page 1 and 10 items per page)
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Calculate the number of documents to skip
+    const startIndex = (page - 1) * limit;
+
+    // Fetch assets with pagination
+    const assets = await assetModel.find().skip(startIndex).limit(limit);
+
+    // Get total number of assets for pagination metadata
+    const totalAssets = await assetModel.countDocuments();
+
     return res.json({
-      data: emp,
+      data: assets,
+      meta: {
+        total: totalAssets,
+        page,
+        limit,
+        totalPages: Math.ceil(totalAssets / limit),
+      },
     });
   } catch (err) {
     console.log(err);
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
