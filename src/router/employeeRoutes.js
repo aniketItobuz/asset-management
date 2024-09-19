@@ -7,11 +7,13 @@ import {
   deleteEmployee,
 } from "../controller/employeeController.js";
 
+import authenticateToken from "../middleware/authMiddleware.js";
+
 const employeeRouter = express.Router();
-employeeRouter.get("/get-all", getAllEmployees);
-employeeRouter.get("/get/:id", getEmployeeById);
-employeeRouter.post("/add", addEmployee);
-employeeRouter.put("/update/:id", updateEmployee);
-employeeRouter.delete("/delete/:id", deleteEmployee);
+employeeRouter.get("/get-all", authenticateToken, getAllEmployees);
+employeeRouter.get("/get/:id", authenticateToken, getEmployeeById);
+employeeRouter.post("/add", authenticateToken, addEmployee);
+employeeRouter.put("/update/:id", authenticateToken, updateEmployee);
+employeeRouter.delete("/delete/:id", authenticateToken, deleteEmployee);
 
 export default employeeRouter;
